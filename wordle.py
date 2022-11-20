@@ -4,16 +4,11 @@ from random import choice
 cantidad_letras = input()
 palabra_escogida = choice(words.palabras_dict[cantidad_letras])
 cantidad_intentos = 0
-intentos = []
 
 # Ingresar palabra
 def ingresar_palabra(palabra_ingresada):
     resultados_palabra = []
     contador_amarillas = {}
-    if len(palabra_ingresada) != int(cantidad_letras):
-        raise Exception()
-    if palabra_ingresada not in words.palabras_set:
-        raise Exception()
     for i in range(int(cantidad_letras)):
         if palabra_ingresada[i] in palabra_escogida:
             if palabra_escogida[i] == palabra_ingresada[i]:
@@ -34,12 +29,15 @@ def ingresar_palabra(palabra_ingresada):
 def jugar():
     palabra_ingresada = input()
     cantidad_intentos += 1
+    if len(palabra_ingresada) != int(cantidad_letras):
+        raise Exception()
+    if palabra_ingresada not in words.palabras_set:
+        raise Exception()
     if palabra_ingresada == palabra_escogida:
         # Gano
         print('El jugador gano')
     else:
         resultado = ingresar_palabra(palabra_ingresada)
-        intentos.append(resultado)
         if cantidad_intentos == 6:
             print('El jugador perdio')
         

@@ -8,7 +8,7 @@ class Inicio(Tk):
         self.fallos = fallos 
         self.minsize(1024, 640) 
  
-        text = f'Aciertos:{aciertos} Fallos:{fallos}' 
+        text = f'Aciertos: {aciertos}   Fallos: {fallos}'
         titulo = Label(self, text = text, font = ('Helvetica', 24, 'bold')) 
         titulo.pack(pady = 20) 
  
@@ -18,8 +18,8 @@ class Inicio(Tk):
         titulo = Label(self, text = 'Por favor seleccione una dificultad', font = ('Helvetica', 12, 'bold')) 
         titulo.pack(pady = 30) 
          
-        self.combo = ttk.Combobox(self, values=[4,5,6,7,8], state='readOnly', ) 
-        self.combo.set(4) 
+        self.combo = ttk.Combobox(self, values=["4","5","6","7","8"], state='readOnly', ) 
+        self.combo.set("4") 
         self.combo.pack() 
  
         boton1 = Button(self, text = "Continuar") 

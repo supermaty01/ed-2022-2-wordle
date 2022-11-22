@@ -28,7 +28,7 @@ class Juego(Tk):
 
         # Se escoge una palabra al azar
         self.palabra_escogida = self.escoger()
-        print(self.palabra_escogida)
+        #print(self.palabra_escogida)
 
         self.ejecutar()
 

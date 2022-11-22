@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, ttk, Button, Frame, Entry, messagebox, CENTER, W
+from tkinter import Tk, Label, Button, Frame, Entry, messagebox
 import words
 from random import choice
 
@@ -61,33 +61,36 @@ class Juego(Tk):
     def procesar_palabra(self, palabra_ingresada):
         '''Funcion para determinar los colores de cada letra teniendo en cuenta la palabra escogida'''
         # Se van agregando los colores de cada letra
-        resultados_palabra = []
-        # Sirve para determinar la cantidad de letras amarillas que se han agregado
-        contador_amarillas = {}
-        #
+        resultados_palabra = ['gris']*int(self.dificultad)
+        # Sirve para determinar la cantidad de letras encontradas que se han agregado
+        contador_encontradas = {}
 
-        # Se itera sobre el tamaño de la palabra
+        # Se itera sobre el tamaño de la palabra para pintar las letras verdes
         for i in range(int(self.dificultad)):
-
-            # Si la letra de la palabra ingresada se encuentra en la palabra escogida, en caso contrario se agrega el color gris a la lista
+            # Si la letra de la palabra ingresada se encuentra en la palabra escogida
             if palabra_ingresada[i] in self.palabra_escogida:
                 # Si la letra es igual a la letra que esta en la misma posicion de la palabra elegida
                 if self.palabra_escogida[i] == palabra_ingresada[i]:
-                    resultados_palabra.append('verde')
-                else:
-                    # Si es la primera vez que se encuentra esa letra en la palabra escogida
-                    if palabra_ingresada[i] not in contador_amarillas:
-                        contador_amarillas[palabra_ingresada[i]] = 1
-                        resultados_palabra.append('amarillo')
-
-                    # Si todavia se pueden pintar mas letras de color amarillo
-                    elif contador_amarillas[palabra_ingresada[i]] < self.palabra_escogida.count(palabra_ingresada[i]):
-                        contador_amarillas[palabra_ingresada[i]] += 1
-                        resultados_palabra.append('amarillo')
+                    resultados_palabra[i] = 'verde'
+                    # Se añade la letra al contador de encontradas para no pintarla en un futuro de amarillo
+                    if palabra_ingresada[i] in contador_encontradas:
+                        contador_encontradas[palabra_ingresada[i]] += 1
                     else:
-                        resultados_palabra.append('gris')
-            else:
-                resultados_palabra.append('gris')
+                        contador_encontradas[palabra_ingresada[i]] = 1
+                        
+        # Se itera sobre el tamaño de la palabra para pintar las amarillas
+        for j in range(int(self.dificultad)):
+            # Si la letra esta en la palabra y es diferente a la letra que esta en la misma posicion de la palabra elegida
+            if palabra_ingresada[j] in self.palabra_escogida and self.palabra_escogida[j] != palabra_ingresada[j]:
+                # Si es la primera vez que se encuentra esa letra en la palabra escogida
+                if palabra_ingresada[j] not in contador_encontradas:
+                    contador_encontradas[palabra_ingresada[j]] = 1
+                    resultados_palabra[j] = 'amarillo'
+
+                # Si todavia se pueden pintar mas letras de color amarillo
+                elif contador_encontradas[palabra_ingresada[j]] < self.palabra_escogida.count(palabra_ingresada[j]):
+                    contador_encontradas[palabra_ingresada[j]] += 1
+                    resultados_palabra[j] ='amarillo'
 
         return resultados_palabra
 
